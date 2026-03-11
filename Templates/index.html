@@ -65,7 +65,7 @@
             updatePlantStatus(data.soil_moisture);
         }
 
-        updatePlantStatus({{ sensor_data.soil_moisture | tojson }});
+        updatePlantStatus(Number("{{ sensor_data.soil_moisture }}"));
 setInterval(refreshReadings, 5000);
     </script>
 </body>
