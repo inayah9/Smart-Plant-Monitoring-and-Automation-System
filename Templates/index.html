@@ -1,1 +1,72 @@
 # Createring a dashboard for the web app to read the sensor results 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Plant Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Smart Plant Monitoring Dashboard</h1>
+        <p class="subtitle">Live plant condition overview</p>
+
+        <div class="card-grid">
+            <div class="card">
+                <h2>Temperature</h2>
+                <p id="temperature">{{ sensor_data.temperature }} °C</p>
+            </div>
+
+            <div class="card">
+                <h2>Humidity</h2>
+                <p id="humidity">{{ sensor_data.humidity }} %</p>
+            </div>
+
+            <div class="card">
+                <h2>Soil Moisture</h2>
+                <p id="soil_moisture">{{ sensor_data.soil_moisture }} %</p>
+            </div>
+
+            <div class="card">
+                <h2>Water Level</h2>
+                <p id="water_level">{{ sensor_data.water_level }} %</p>
+            </div>
+        </div>
+
+        <div class="status-box">
+            <h2>Plant Status</h2>
+            <p id="plant_status">Checking...</p>
+        </div>
+    </div>
+
+    <script>
+        function updatePlantStatus(soilMoisture) {
+            const status = document.getElementById("plant_status");
+
+            if (soilMoisture < 30) {
+                status.textContent = "Plant needs watering";
+            } else if (soilMoisture < 50) {
+                status.textContent = "Plant moisture is moderate";
+            } else {
+                status.textContent = "Plant is healthy";
+            }
+        }
+
+        async function refreshReadings() {
+            const response = await fetch("/api/readings");
+            const data = await response.json();
+
+            document.getElementById("temperature").textContent = data.temperature + " °C";
+            document.getElementById("humidity").textContent = data.humidity + " %";
+            document.getElementById("soil_moisture").textContent = data.soil_moisture + " %";
+            document.getElementById("water_level").textContent = data.water_level + " %";
+
+            updatePlantStatus(data.soil_moisture);
+        }
+
+        updatePlantStatus({{ sensor_data.soil_moisture | tojson }});
+setInterval(refreshReadings, 5000);
+    </script>
+</body>
+</html>
