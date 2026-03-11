@@ -2,7 +2,7 @@
 
 
 from flask import Flask, render_template, jsonify
-from fake_sensors import get_sensor_data
+from test_sensors import get_sensor_data
 
 app = Flask(__name__)
 
