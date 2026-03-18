@@ -12,6 +12,12 @@ app = Flask(__name__)
 def dashboard():
     sensor_data = get_sensor_data()
     plant = load_plant_data()
+
+   # if no plant is added previously 
+    if plant is None:
+        return render_template("add_plant.html")
+    
+    # if there is a plant 
     return render_template("index.html", sensor_data=sensor_data, plant=plant)
 
 @app.route("/add_plant", methods=["POST"])
@@ -22,7 +28,7 @@ def add_plant():
         "date_planted": request.form["date_planted"],
         "last_watered": request.form["last_watered"]
     }
-
+    # Save plant data and return to the dashboard 
     save_plant_data(plant_data)
     return redirect(url_for("dashboard"))
 
