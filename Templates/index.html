@@ -12,6 +12,14 @@
         <h1>Smart Plant Monitoring Dashboard</h1>
         <p class="subtitle">Live plant condition overview</p>
 
+        <div class="status-box">
+            <h2>Plant Information</h2>
+            <p><strong>Name:</strong> {{ plant.name }}</p>
+            <p><strong>Type:</strong> {{ plant.type }}</p>
+            <p><strong>Date Planted:</strong> {{ plant.date_planted }}</p>
+            <p><strong>Last Watered:</strong> <span id="last_watered">{{ plant.last_watered }}</span></p>
+        </div>
+
         <div class="card-grid">
             <div class="card">
                 <h2>Temperature</h2>
@@ -66,7 +74,7 @@
         }
 
         updatePlantStatus(Number("{{ sensor_data.soil_moisture }}"));
-setInterval(refreshReadings, 5000);
+        setInterval(refreshReadings, 5000);
     </script>
 </body>
 </html>
