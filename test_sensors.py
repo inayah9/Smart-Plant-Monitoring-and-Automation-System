@@ -3,6 +3,7 @@
 
 
 # Creating the fake data to test the system
+#  REMEMBER TO DELETE THIS !!!!!!!
 import random
 
 def get_sensor_data():
