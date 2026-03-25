@@ -11,15 +11,20 @@ def load_plant_data():
     with open(DATA_FILE, "r") as file:
         return json.load(file)
 
-# no data allow the user to save the data
+# no data; allow the user to save the data
 def save_plant_data(data):
     with open(DATA_FILE, "w") as file:
         json.dump(data, file, indent=4)
 
 
-#Recird the last wated time of the plant 
+#Record the last wated time of the plant 
 def update_last_watered(new_date):
     plant = load_plant_data()
     if plant:
         plant["last_watered"] = new_date
         save_plant_data(plant)
+
+# Allow for deletion of the plants data
+def delete_plant_data():
+    os.path.exists(DATA_FILE)
+    os.remove(DATA_FILE)

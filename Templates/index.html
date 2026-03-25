@@ -52,10 +52,14 @@
         function updatePlantStatus(soilMoisture) {
             const status = document.getElementById("plant_status");
 
-            if (soilMoisture < 30) {
+            <!-- moisture reading for an average house plant = 1-3 -> dry 4-7 -> good/moist  >7 -> wet-->
+
+            if (soilMoisture < 20) {
                 status.textContent = "Plant needs watering";
             } else if (soilMoisture < 50) {
                 status.textContent = "Plant moisture is moderate";
+            } else if (soilMoisture > 80) {
+                status.textContent = "plant moisture is too high";
             } else {
                 status.textContent = "Plant is healthy";
             }
