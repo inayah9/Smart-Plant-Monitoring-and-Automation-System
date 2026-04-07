@@ -26,5 +26,5 @@ def update_last_watered(new_date):
 
 # Allow for deletion of the plants data
 def delete_plant_data():
-    os.path.exists(DATA_FILE)
-    os.remove(DATA_FILE)
+    if os.path.exists(DATA_FILE):
+         os.remove(DATA_FILE)
