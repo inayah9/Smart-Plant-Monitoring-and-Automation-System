@@ -18,6 +18,15 @@
             <p><strong>Type:</strong> {{ plant.type }}</p>
             <p><strong>Date Planted:</strong> {{ plant.date_planted }}</p>
             <p><strong>Last Watered:</strong> <span id="last_watered">{{ plant.last_watered }}</span></p>
+            <div class="button-group">
+                     <form action="/water_plant" method="post">
+                         <button type="submit" class="water-button">Water Plant</button>
+                     </form>
+
+                    <form action="/delete_plant" method="post">
+                         <button type="submit" class="delete-button">Delete Plant</button>
+                    </form>
+            </div>
         </div>
 
         <div class="card-grid">
