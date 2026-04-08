@@ -4,7 +4,8 @@
 
 from flask import Flask, render_template, jsonify, request, redirect, url_for
 from test_sensors import get_sensor_data
-from data_store import load_plant_data, save_plant_data
+from datetime import datetime 
+from data_store import load_plant_data, save_plant_data, update_last_watered, delete_plant_data
 
 app = Flask(__name__)
 
@@ -35,6 +36,18 @@ def add_plant():
 @app.route("/api/readings")
 def api_readings():
     return jsonify(get_sensor_data())
+
+# Adding the button for watering the plant 
+@app.route("/water_plant", methods=["POST"])
+def water_plant():
+    update_last_watered(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    return redirect(url_for("dashboard"))
+
+# Deltet the plant 
+@app.route("/delete_plant", methods=["POST"])
+def delete_plant():
+    delete_plant_data()
+    return redirect(url_for("dashboard"))
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
