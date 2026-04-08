@@ -33,10 +33,6 @@ def add_plant():
     save_plant_data(plant_data)
     return redirect(url_for("dashboard"))
 
-@app.route("/api/readings")
-def api_readings():
-    return jsonify(get_sensor_data())
-
 # Adding the button for watering the plant 
 @app.route("/water_plant", methods=["POST"])
 def water_plant():
@@ -48,6 +44,10 @@ def water_plant():
 def delete_plant():
     delete_plant_data()
     return redirect(url_for("dashboard"))
+
+@app.route("/api/readings")
+def api_readings():
+    return jsonify(get_sensor_data())
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
