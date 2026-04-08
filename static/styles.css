@@ -13,7 +13,9 @@
     text-align: center;
 }
 
-
+h1, .subtitle {
+    text-align: center;
+}
 
 .button-group form {
     margin: 0;
