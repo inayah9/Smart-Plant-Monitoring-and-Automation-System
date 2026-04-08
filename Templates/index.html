@@ -8,52 +8,54 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Your Plant Dashboard</h1>
-        <p class="subtitle">Live plant condition overview</p>
+    <div class="page-wrapper">
+        <div class="container">
+            <h1>Your Plant Dashboard</h1>
+            <p class="subtitle">Live plant condition overview</p>
 
-        <div class="status-box">
-            <h2>Plant Information</h2>
-            <p><strong>Name:</strong> {{ plant.name }}</p>
-            <p><strong>Type:</strong> {{ plant.type }}</p>
-            <p><strong>Date Planted:</strong> {{ plant.date_planted }}</p>
-            <p><strong>Last Watered:</strong> <span id="last_watered">{{ plant.last_watered }}</span></p>
-            <div class="button-group">
-                     <form action="/water_plant" method="post">
-                         <button type="submit" class="water-button">Water Plant</button>
-                     </form>
+            <div class="status-box">
+                <h2>Plant Information</h2>
+                <p><strong>Name:</strong> {{ plant.name }}</p>
+                <p><strong>Type:</strong> {{ plant.type }}</p>
+                <p><strong>Date Planted:</strong> {{ plant.date_planted }}</p>
+                <p><strong>Last Watered:</strong> <span id="last_watered">{{ plant.last_watered }}</span></p>
+                <div class="button-group">
+                        <form action="/water_plant" method="post">
+                            <button type="submit" class="water-button">Water Plant</button>
+                        </form>
 
-                    <form action="/delete_plant" method="post">
-                         <button type="submit" class="delete-button">Delete Plant</button>
-                    </form>
-            </div>
-        </div>
-
-        <div class="card-grid">
-            <div class="card">
-                <h2>Temperature</h2>
-                <p id="temperature">{{ sensor_data.temperature }} °C</p>
+                        <form action="/delete_plant" method="post">
+                            <button type="submit" class="delete-button">Delete Plant</button>
+                        </form>
+                </div>
             </div>
 
-            <div class="card">
-                <h2>Humidity</h2>
-                <p id="humidity">{{ sensor_data.humidity }} %</p>
+            <div class="card-grid">
+                <div class="card">
+                    <h2>Temperature</h2>
+                    <p id="temperature">{{ sensor_data.temperature }} °C</p>
+                </div>
+
+                <div class="card">
+                    <h2>Humidity</h2>
+                    <p id="humidity">{{ sensor_data.humidity }} %</p>
+                </div>
+
+                <div class="card">
+                    <h2>Soil Moisture</h2>
+                    <p id="soil_moisture">{{ sensor_data.soil_moisture }} %</p>
+                </div>
+
+                <div class="card">
+                    <h2>Water Level</h2>
+                    <p id="water_level">{{ sensor_data.water_level }} %</p>
+                </div>
             </div>
 
-            <div class="card">
-                <h2>Soil Moisture</h2>
-                <p id="soil_moisture">{{ sensor_data.soil_moisture }} %</p>
+            <div class="status-box">
+                <h2>Plant Status</h2>
+                <p id="plant_status">Checking...</p>
             </div>
-
-            <div class="card">
-                <h2>Water Level</h2>
-                <p id="water_level">{{ sensor_data.water_level }} %</p>
-            </div>
-        </div>
-
-        <div class="status-box">
-            <h2>Plant Status</h2>
-            <p id="plant_status">Checking...</p>
         </div>
     </div>
 
