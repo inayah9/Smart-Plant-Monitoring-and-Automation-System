@@ -6,6 +6,10 @@
     flex-wrap: wrap;
 }
 
+.status-box {
+    text-align: center;
+}
+
 .button-group form {
     margin: 0;
 }
@@ -13,7 +17,7 @@
 .water-button,
 .delete-button {
     padding: 10px 18px;
-    border: none;
+    border: outset;
     border-radius: 8px;
     font-size: 1rem;
     cursor: pointer;
