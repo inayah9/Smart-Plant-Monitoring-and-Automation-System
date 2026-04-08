@@ -42,3 +42,10 @@
 .delete-button:hover {
     background-color: #992d22;
 }
+
+body{
+    background-image: url("/static/Flowers.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
