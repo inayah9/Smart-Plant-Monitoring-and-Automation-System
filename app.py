@@ -3,7 +3,8 @@
 # use this class for the Json file 
 
 from flask import Flask, render_template, jsonify, request, redirect, url_for
-from test_sensors import get_sensor_data
+from sensors import get_sensor_data
+# from test_sensors import get_sensor_data
 from datetime import datetime 
 from data_store import load_plant_data, save_plant_data, update_last_watered, delete_plant_data
 
