@@ -1,11 +1,12 @@
-from __future__ import annotations
 
-import random
+
+## test the aht10 sensor i=on its own as its BUGGING OUT
 import time
 from typing import Any, Dict, Optional
 
 AHT_SENSOR = None
 AHT_ERROR: Optional[str] = None
+
 
 def _init_aht():
     global AHT_SENSOR, AHT_ERROR
@@ -22,38 +23,35 @@ def _init_aht():
         AHT_SENSOR = adafruit_ahtx0.AHTx0(i2c)
         AHT_ERROR = None
         return AHT_SENSOR
+
     except Exception as e:
         AHT_SENSOR = None
         AHT_ERROR = str(e)
         return None
 
+
 def get_sensor_data() -> Dict[str, Any]:
     sensor = _init_aht()
 
-    try:
-        if sensor is None:
-            raise RuntimeError(AHT_ERROR or "AHT sensor not available")
+    temperature = None
+    humidity = None
+    sensor_error = None
 
-        temperature = round(float(sensor.temperature), 1)
-        humidity = round(float(sensor.relative_humidity), 1)
-        aht_source = "real"
-        sensor_error = None
-
-    except Exception as e:
-        temperature = round(random.uniform(20.0, 28.0), 1)
-        humidity = round(random.uniform(45.0, 65.0), 1)
-        aht_source = "simulated"
-        sensor_error = str(e)
-
-    soil_moisture = random.randint(40, 70)
+    if sensor is None:
+        sensor_error = AHT_ERROR or "AHT sensor not available"
+    else:
+        try:
+            temperature = round(float(sensor.temperature), 1)
+            humidity = round(float(sensor.relative_humidity), 1)
+        except Exception as e:
+            sensor_error = str(e)
 # retuen the data from the sensors not all added at the moment 
 # need to work on the soil sensoe next
     return {
         "temperature": temperature,
         "humidity": humidity,
-        "soil_moisture": soil_moisture,
-        "aht_source": aht_source,
-        "soil_source": "simulated",
+        "soil_moisture": None,   # not connected yet
+        "water_level": None,     # not implemented yet
         "sensor_error": sensor_error,
         "timestamp": int(time.time())
     }
