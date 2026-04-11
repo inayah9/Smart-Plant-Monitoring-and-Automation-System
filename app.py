@@ -7,6 +7,7 @@ from sensors import get_sensor_data
 # from test_sensors import get_sensor_data
 from datetime import datetime 
 from data_store import load_plant_data, save_plant_data, update_last_watered, delete_plant_data
+from plant_controller import pump_for_seconds
 
 app = Flask(__name__)
 
@@ -34,10 +35,18 @@ def add_plant():
     save_plant_data(plant_data)
     return redirect(url_for("dashboard"))
 
-# Adding the button for watering the plant 
+# Adding the button for watering the plant
+# Eddited so that the pump actaully works  
+# When the buttone is pressed the last watered time should update with day and date
 @app.route("/water_plant", methods=["POST"])
 def water_plant():
     update_last_watered(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+
+    try:
+        pump_for_seconds(5)
+    except Exception as e:
+        print("Pump error:", e)
+
     return redirect(url_for("dashboard"))
 
 # Deltet the plant 
