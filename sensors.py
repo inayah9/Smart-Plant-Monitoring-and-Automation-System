@@ -8,6 +8,10 @@ ADS_DEVICE = None
 SOIL_SENSOR = None
 ADC_ERROR: Optional[str] = None
 
+# !!!!! Toggle this for testing without hardware
+# When using hardware set to false 
+SIMULATION_MODE = True
+
 
 def _init_aht():
     global AHT_SENSOR, AHT_ERROR
@@ -41,6 +45,9 @@ ADS_DEVICE = None
 SOIL_SENSOR = None
 ADC_ERROR: Optional[str] = None
 
+# Toggle this for testing without hardware
+SIMULATION_MODE = True
+
 def _init_ads():
     global ADS_DEVICE, SOIL_SENSOR, ADC_ERROR
 
@@ -72,6 +79,12 @@ def _init_ads():
     
 # For the temp reader (aht10)
 def _read_aht():
+    if SIMULATION_MODE:
+        temperature = round(22.0 + (time.time() % 5), 1)
+        humidity = round(50.0 + (time.time() % 10), 1)
+        error = None
+        return temperature, humidity, error
+
     sensor = _init_aht()
 
     temperature = None
@@ -91,6 +104,10 @@ def _read_aht():
 
 # For the soil moisture reader - connectd to an adc - ads1115
 def _read_soil():
+    if SIMULATION_MODE:
+        fake_percent = int(35 + (time.time() % 40))
+        return fake_percent, None
+
     _init_ads()
 
     if SOIL_SENSOR is None:
@@ -134,4 +151,3 @@ def get_sensor_data() -> Dict[str, Any]:
         "sensor_error": sensor_error,
         "timestamp": int(time.time())
     }
-
