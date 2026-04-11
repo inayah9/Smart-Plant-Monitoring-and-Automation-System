@@ -41,29 +41,6 @@ ADS_DEVICE = None
 SOIL_SENSOR = None
 ADC_ERROR: Optional[str] = None
 
-
-def _init_aht():
-    global AHT_SENSOR, AHT_ERROR
-
-    if AHT_SENSOR is not None:
-        return AHT_SENSOR
-# imports to be able to read the board and the library for the sensors 
-    try:
-        import board
-        import busio
-        import adafruit_ahtx0
-
-        i2c = busio.I2C(board.SCL, board.SDA)
-        AHT_SENSOR = adafruit_ahtx0.AHTx0(i2c)
-        AHT_ERROR = None
-        return AHT_SENSOR
-
-    except Exception as e:
-        AHT_SENSOR = None
-        AHT_ERROR = str(e)
-        return None
-
-
 def _init_ads():
     global ADS_DEVICE, SOIL_SENSOR, ADC_ERROR
 
@@ -157,24 +134,3 @@ def get_sensor_data() -> Dict[str, Any]:
         "timestamp": int(time.time())
     }
 
-#collect the sensor data and send it to be displayed ont he webpage
-def get_sensor_data() -> Dict[str, Any]:
-    temperature, humidity, aht_error = _read_aht()
-    soil_moisture, soil_error = _read_soil()
-
-    sensor_error = None
-    if aht_error and soil_error:
-        sensor_error = f"AHT: {aht_error} | Soil: {soil_error}"
-    elif aht_error:
-        sensor_error = f"AHT: {aht_error}"
-    elif soil_error:
-        sensor_error = f"Soil: {soil_error}"
-# Return the data that is collected from the sensors, water level senses is ommited 
-    return {
-        "temperature": temperature,
-        "humidity": humidity,
-        "soil_moisture": soil_moisture,
-        "water_level": None, # for future 
-        "sensor_error": sensor_error,
-        "timestamp": int(time.time())
-    }
