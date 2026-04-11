@@ -91,7 +91,6 @@ def _init_ads():
         SOIL_SENSOR = None
         ADC_ERROR = str(e)
         return None
-    
 # For the temp reader (aht10)
 def _read_aht():
     sensor = _init_aht()
@@ -116,13 +115,10 @@ def _read_soil():
     _init_ads()
 
     if SOIL_SENSOR is None:
-        print("SOIL_SENSOR is None")
-        print("ADC_ERROR:", ADC_ERROR)
         return None, ADC_ERROR
 
     try:
         voltage = SOIL_SENSOR.voltage
-        print("Soil voltage:", voltage)
 
         # Temporary conversion for testing
         # You will calibrate these values later
@@ -130,18 +126,14 @@ def _read_soil():
         dry_voltage = 2.6
         wet_voltage = 1.2
 
-        # Convert voltage to moisture percentage
         percent = (dry_voltage - voltage) * 100 / (dry_voltage - wet_voltage)
-
-        # Clamp between 0 and 100
         percent = max(0, min(100, percent))
 
-        print("Soil percent:", percent)
         return int(percent), None
 
     except Exception as e:
-        print("Soil read error:", e)
         return None, str(e)
+
 #collect the sensor data and send it to be displayed ont he webpage
 def get_sensor_data() -> Dict[str, Any]:
     temperature, humidity, aht_error = _read_aht()
