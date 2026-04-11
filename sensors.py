@@ -91,6 +91,7 @@ def _init_ads():
         SOIL_SENSOR = None
         ADC_ERROR = str(e)
         return None
+    
 # For the temp reader (aht10)
 def _read_aht():
     sensor = _init_aht()
@@ -126,7 +127,10 @@ def _read_soil():
         dry_voltage = 2.6
         wet_voltage = 1.2
 
+        # Convert voltage to moisture percentage
         percent = (dry_voltage - voltage) * 100 / (dry_voltage - wet_voltage)
+
+        # Clamp between 0 and 100
         percent = max(0, min(100, percent))
 
         return int(percent), None
