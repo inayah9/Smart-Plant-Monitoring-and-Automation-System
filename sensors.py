@@ -58,7 +58,7 @@ def _init_ads():
         ADS_DEVICE = ADS.ADS1115(i2c)
 
         # Soil sensor connected to A0 on the ADS1115
-        SOIL_SENSOR = AnalogIn(ADS_DEVICE, ADS.P0)
+        SOIL_SENSOR = AnalogIn(ADS_DEVICE, Pin.A0)
 
         ADC_ERROR = None
         return ADS_DEVICE
