@@ -44,7 +44,7 @@ def _init_ads():
         from adafruit_ads1x15.analog_in import AnalogIn
 
         i2c = busio.I2C(board.SCL, board.SDA)
-        ADS_DEVICE = ADS.ADS1115(i2c)
+        ADS_DEVICE = ADS1115.ADS1115(i2c)
 
         # Soil sensor connected to A0 on the ADS1115
         SOIL_SENSOR = AnalogIn(ADS_DEVICE, ADS1115.P0)
