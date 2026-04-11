@@ -1,10 +1,6 @@
 ## The water pumps logic
-# will make the water come out for 5 seconds when the pump is pressed 
-#maybe allow the user to be able to controll the amount of water in seconds????
-
-
-
-
+# will make the water come out for 5 seconds when the pump is pressed
+# maybe allow the user to be able to controll the amount of water in seconds????
 
 import time
 
@@ -13,9 +9,9 @@ try:
 except ImportError:
     GPIO = None
 
-#pi pin
+# pi pin
 RELAY_PIN = 17
-ACTIVE_LOW = True  
+ACTIVE_LOW = True
 
 GPIO_READY = False
 
@@ -29,7 +25,7 @@ def setup():
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(RELAY_PIN, GPIO.OUT)
 
-    # Turn off at the begining 
+    # Turn off at the begining
     if ACTIVE_LOW:
         GPIO.output(RELAY_PIN, GPIO.HIGH)
     else:
@@ -38,10 +34,12 @@ def setup():
     GPIO_READY = True
 
 
-# Turn the pump on 
+# Turn the pump on
 def pump_on():
     if GPIO is None:
         return
+
+    setup()
 
     if ACTIVE_LOW:
         GPIO.output(RELAY_PIN, GPIO.LOW)
@@ -52,6 +50,8 @@ def pump_on():
 def pump_off():
     if GPIO is None:
         return
+
+    setup()
 
     if ACTIVE_LOW:
         GPIO.output(RELAY_PIN, GPIO.HIGH)

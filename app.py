@@ -7,7 +7,7 @@ from sensors import get_sensor_data
 # from test_sensors import get_sensor_data
 from datetime import datetime 
 from data_store import load_plant_data, save_plant_data, update_last_watered, delete_plant_data
-from plant_controller import pump_for_seconds
+from plant_controller import pump_for_seconds,setup
 
 app = Flask(__name__)
 
@@ -60,4 +60,5 @@ def api_readings():
     return jsonify(get_sensor_data())
 
 if __name__ == "__main__":
+    setup() #attempt at making the relay work better
     app.run(host="0.0.0.0", port=5000, debug=True)
