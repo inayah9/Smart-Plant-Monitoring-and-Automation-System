@@ -35,19 +35,6 @@ def _init_aht():
         return None
 
 
-import time
-from typing import Any, Dict, Optional
-
-AHT_SENSOR = None
-AHT_ERROR: Optional[str] = None
-
-ADS_DEVICE = None
-SOIL_SENSOR = None
-ADC_ERROR: Optional[str] = None
-
-# Toggle this for testing without hardware
-SIMULATION_MODE = True
-
 def _init_ads():
     global ADS_DEVICE, SOIL_SENSOR, ADC_ERROR
 
